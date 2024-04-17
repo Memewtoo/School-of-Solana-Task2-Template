@@ -212,54 +212,54 @@ mod test {
         assert_eq!(computed_area, reference_area);
     }
     #[test]
-    fn rectangle_circumference() {
+    fn rectangle_perimeter() {
         let a_in: f64 = 15.0;
         let b_in: f64 = 7.0;
         let rectangle = Rectangle::try_new(&a_in, &b_in).unwrap();
 
-        assert_eq!(rectangle.circumference(), circumference!(a_in, b_in));
+        assert_eq!(rectangle.perimeter(), perimeter!(a_in, b_in));
 
-        let circumference = rectangle.circumference();
+        let perimeter = rectangle.perimeter();
 
-        let reference_circ = format!("{:.5}", circumference!(a_in, b_in));
-        let computed_circ = format!("{:.5}", circumference);
+        let reference_peri = format!("{:.5}", perimeter!(a_in, b_in));
+        let computed_peri = format!("{:.5}", perimeter);
 
-        assert_eq!(computed_circ, reference_circ);
+        assert_eq!(computed_peri, reference_peri);
     }
     #[test]
-    fn rectangle_circumference_with_set() {
+    fn rectangle_perimeter_with_set() {
         let a_in: f64 = 584.0;
         let b_in: f64 = 1287.0;
         let mut rectangle = Rectangle::try_new(&a_in, &b_in).unwrap();
 
-        let circumference = rectangle.circumference();
+        let perimeter = rectangle.perimeter();
 
-        let reference_circ = format!("{:.5}", circumference!(a_in, b_in));
-        let computed_circ = format!("{:.5}", circumference);
+        let reference_peri = format!("{:.5}", perimeter!(a_in, b_in));
+        let computed_peri = format!("{:.5}", perimeter);
 
-        assert_eq!(computed_circ, reference_circ);
+        assert_eq!(computed_peri, reference_peri);
 
         let new_a_in: f64 = 8.0;
         let res = rectangle.set_a(&new_a_in);
         assert!(res.is_ok());
 
-        let circumference = rectangle.circumference();
+        let perimeter = rectangle.perimeter();
 
-        let reference_circ = format!("{:.5}", circumference!(new_a_in, b_in));
-        let computed_circ = format!("{:.5}", circumference);
+        let reference_peri = format!("{:.5}", perimeter!(new_a_in, b_in));
+        let computed_peri = format!("{:.5}", perimeter);
 
-        assert_eq!(computed_circ, reference_circ);
+        assert_eq!(computed_peri, reference_peri);
 
         let new_b_in: f64 = 8.0;
         let res = rectangle.set_b(&new_b_in);
         assert!(res.is_ok());
 
-        let circumference = rectangle.circumference();
+        let perimeter = rectangle.perimeter();
 
-        let reference_circ = format!("{:.5}", circumference!(new_a_in, new_b_in));
-        let computed_circ = format!("{:.5}", circumference);
+        let reference_peri = format!("{:.5}", perimeter!(new_a_in, new_b_in));
+        let computed_peri = format!("{:.5}", perimeter);
 
-        assert_eq!(computed_circ, reference_circ);
+        assert_eq!(computed_peri, reference_peri);
     }
     #[test]
     fn circle_circumference() {
@@ -351,16 +351,16 @@ mod test {
                 assert!(rectangle.is_err());
             } else {
                 let rectangle = rectangle.unwrap();
-                let circumference = rectangle.circumference();
+                let perimeter = rectangle.perimeter();
                 let area = rectangle.area();
 
-                let reference_circ = format!("{:.5}", circumference!(a_in, b_in));
+                let reference_peri = format!("{:.5}", perimeter!(a_in, b_in));
                 let reference_area = format!("{:.5}", area!(a_in, b_in));
 
-                let computed_circ = format!("{:.5}", circumference);
+                let computed_peri = format!("{:.5}", perimeter);
                 let computed_area = format!("{:.5}", area);
 
-                assert_eq!(computed_circ, reference_circ);
+                assert_eq!(computed_peri, reference_peri);
                 assert_eq!(computed_area, reference_area);
             }
         }
@@ -368,6 +368,7 @@ mod test {
     use crate::area;
     use crate::circumference;
     use crate::op;
+    use crate::perimeter;
     use crate::Calculator;
     use crate::Circle;
     use crate::Rectangle;
@@ -383,10 +384,15 @@ mod my_macros {
         ($radius:ident) => {
             2.0 * $radius * std::f64::consts::PI
         };
-        ($a:ident,$b:ident) => {
+    }
+
+    #[macro_export]
+    macro_rules! perimeter {
+        ($a:ident, $b:ident) => {
             2.0 * $a + 2.0 * $b
         };
     }
+
     #[macro_export]
     macro_rules! area {
         ($radius:ident) => {
