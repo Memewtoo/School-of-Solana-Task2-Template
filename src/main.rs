@@ -17,6 +17,7 @@ mod tests;
 pub trait Shape {
     fn area(&self) -> f64;
     fn circumference(&self) -> f64;
+    fn perimeter(&self) -> f64;
 }
 // ------------------------------------------------------------------------------------------------
 // Structs
@@ -138,16 +139,21 @@ impl Shape for Rectangle {
     fn area(&self) -> f64 {
         self.a * self.b
     }
-    /// Computes Circumference of given Rectangle
+
+    /// Skip implementation of circumference for Rectangle
     fn circumference(&self) -> f64 {
-        // TODO Calculate the circumference of the rectangle.
+        unimplemented!()
+    }
+
+    /// Computes Perimeter of given Rectangle
+    fn perimeter(&self) -> f64 {
+        // TODO Calculate the perimeter of the rectangle.
         todo!()
     }
 }
 
 // TODO Implement the Shape trait and its methods for the Circle struct
 // Hint: you can use std::f64::consts::PI
-
 // ------------------------------------------------------------------------------------------------
 // Examples
 //
@@ -263,11 +269,11 @@ impl fmt::Display for Rectangle {
             "-----------------------------------------------------------------\n".to_string();
         out.push_str("Printing Rectangle\n");
         out.push_str(&format!(
-            "a:{}, b:{}, area:{}, circumference:{}\n",
+            "a:{}, b:{}, area:{}, perimeter:{}\n",
             self.get_a(),
             self.get_b(),
             self.area(),
-            self.circumference(),
+            self.perimeter(),
         ));
         out.push_str("-----------------------------------------------------------------\n");
         write!(f, "{}", out)
